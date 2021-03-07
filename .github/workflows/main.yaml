@@ -10,4 +10,4 @@ jobs:
     container: flungo/inkscape
     steps:
       - name: Run in container
-        run: /usr/bin/inkscape --help
+        run: /usr/bin/inkscape -f "icons.ai" -l "icons.svg"
