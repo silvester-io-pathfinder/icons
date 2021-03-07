@@ -1,3 +1,9 @@
+name: ci
+
+on:
+  push:
+    branches: master
+
 jobs:
   transform:
     runs-on: ubuntu-latest
