@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Run in container
         run: |
-          ls -lR
-          ls -lR ~/
-          ls -lR /
+          ls -R
+          ls -R ~/
+          ls -R /
           /usr/bin/inkscape -f "~/icons.ai" -l "~/icons.svg"
