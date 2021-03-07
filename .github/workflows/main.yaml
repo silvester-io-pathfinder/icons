@@ -1,0 +1,7 @@
+jobs:
+  transform:
+    runs-on: ubuntu-latest
+    container: flungo/inkscape
+    steps:
+      - name: Run in container
+        run: /usr/bin/inkscape --help
