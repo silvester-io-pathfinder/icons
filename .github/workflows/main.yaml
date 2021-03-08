@@ -22,7 +22,8 @@ jobs:
           dotnet-version: '5.0.100'
       - name: Install - SVGO
         run: npm install -g svgo
-      - uses: nuget/setup-nuget@v1
+      - name: Install - NUGET
+        uses: nuget/setup-nuget@v1
         with:
           nuget-api-key: ${{ secrets.NuGetAPIKey }}
           nuget-version: '5.x'
@@ -51,23 +52,23 @@ jobs:
         
         
       # Project Creation  
-      - name: Create Project
+      - name: DOTNET - Project
         run: |
           dotnet new classlib -n Silvester.Pathfinder.Official.Icons -o ./project -f netstandard2.0
           rm ./project/Class1.cs  
 
-      - name: Create Classes
+      - name: DOTNET - Classes
         run: |
           sudo chmod +rx ./Templates/icon.bat
           cd ./project
           for FILE in ../Icons/*.svg; do ../Templates/icon.bat "${FILE}"; done 
           
-      - name: Create Package.
+      - name: NUGET - Package
         run: |
-          dotnet pack -c Release -o ../build 
+          dotnet pack ./project/Silvester.Pathfinder.Official.Icons -c Release -o ../build 
           mv ../build/Silvester.Pathfinder.Official.Icons.1.0.0.nupkg ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-semver.outputs.tag }}.nupkg
           
-      - name: Publish Package.
+      - name: NUGET - Push
         run: |
           nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/silvester-nuget
           nuget setapikey ${{ secrets.ARTIFACTORY_USERNAME }}:${{ secrets.ARTIFACTORY_PASSWORD }} -Source Artifactory
