@@ -30,7 +30,7 @@ jobs:
           options: --mount type=bind,source=${{ steps.set-cwd.outputs.CWD }},target=/mnt
           run: |
             for FILE in /mnt/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
-            sudo chmod 777 ./*.svg 
+            chmod 777 ./*.svg 
       - name: Minify SVG
         run: svgo -f .
         
