@@ -22,12 +22,12 @@ jobs:
         run: npm install -g svgo
         
         
-      - name: Set CWD
+      - name: Set - CWD
         run: echo "::set-output name=CWD::${PWD}"      
         id: set-cwd
         
       # Conversion
-      - name: Converting to SVG
+      - name: SVG - Convert
         uses: addnab/docker-run-action@v2
         with:
           image: flungo/inkscape
@@ -35,7 +35,7 @@ jobs:
           run: |
             for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
             chmod 777 /mnt/Icons/*.svg 
-      - name: Minify SVG
+      - name: SVG - Minify
         run: svgo -f ./Icons
         
         
@@ -47,6 +47,7 @@ jobs:
 
       - name: Create icon partial classes
         run: |
+          sudo chmod +rx ./Templates/icon.bat
           cd ./project
           for FILE in ../Icons/*.svg; do ../Templates/icon.bat "${FILE}"; done 
       
