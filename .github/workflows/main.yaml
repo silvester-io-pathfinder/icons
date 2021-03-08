@@ -10,19 +10,23 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Install - Node
+      - name: Install - NODE
         uses: actions/setup-node@v2
         with:
           node-version: '14'
-      - name: Install - .NET SDK
+      - name: Install - DOTNET SDK
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: '5.0.100'
       - name: Install - SVGO
         run: npm install -g svgo
+        
+        
       - name: Set CWD
         run: echo "::set-output name=CWD::${PWD}"      
         id: set-cwd
+        
+      # Conversion
       - name: Converting to SVG
         uses: addnab/docker-run-action@v2
         with:
@@ -34,6 +38,8 @@ jobs:
       - name: Minify SVG
         run: svgo -f ./Icons
         
+        
+      # Project Creation  
       - name: Create project
         run: |
           dotnet new classlib -n Silvester.Pathfinder.Official.Icons -o ./project
@@ -42,5 +48,5 @@ jobs:
       - name: Create icon partial classes
         run: |
           cd ./project
-          for FILE in ./Icons/*.svg; do ./Templates/icon.bat "${FILE}"; done 
+          for FILE in ../Icons/*.svg; do ../Templates/icon.bat "${FILE}"; done 
       
