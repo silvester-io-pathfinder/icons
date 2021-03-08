@@ -32,7 +32,6 @@ jobs:
       - name: Minify SVG
         run: svgo -f .
         
-      - name: 
       - name: Create project
         run: |
           dotnet new classlib -n Silvester.Pathfinder.Official.Icons -o ./project
