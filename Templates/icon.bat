@@ -1,7 +1,7 @@
 #! /bin/bash
 
 inputFilePath=$1
-inputFileName=$(basename -- "$filePath")
+inputFileName=${inputFilePath%.*}
 inputFileContentEscaped=cat $filePath | printf "%q" 
 
 cat > ./${inputFileName}.cs  <<-EOF 
