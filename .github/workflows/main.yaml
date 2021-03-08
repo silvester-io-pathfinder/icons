@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
+      # Setup
       - name: Install - NODE
         uses: actions/setup-node@v2
         with:
@@ -20,11 +22,20 @@ jobs:
           dotnet-version: '5.0.100'
       - name: Install - SVGO
         run: npm install -g svgo
+      - uses: nuget/setup-nuget@v1
+        with:
+          nuget-api-key: ${{ secrets.NuGetAPIKey }}
+          nuget-version: '5.x'
         
-        
+      # Variables  
       - name: Set - CWD
         run: echo "::set-output name=CWD::${PWD}"      
         id: set-cwd
+        
+      - name: Set - SEMVER
+        id: set-semver
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
+        
         
       # Conversion
       - name: SVG - Convert
@@ -40,14 +51,26 @@ jobs:
         
         
       # Project Creation  
-      - name: Create project
+      - name: Create Project
         run: |
-          dotnet new classlib -n Silvester.Pathfinder.Official.Icons -o ./project
+          dotnet new classlib -n Silvester.Pathfinder.Official.Icons -o ./project -f netstandard2.0
           rm ./project/Class1.cs  
 
-      - name: Create icon partial classes
+      - name: Create Classes
         run: |
           sudo chmod +rx ./Templates/icon.bat
           cd ./project
           for FILE in ../Icons/*.svg; do ../Templates/icon.bat "${FILE}"; done 
+          
+      - name: Create Package.
+        run: |
+          dotnet pack -c Release -o ../build --version-suffix 
+          mv ../build/Silvester.Pathfinder.Official.Icons.1.0.0.nupkg ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-semver.outputs.tag }}.nupkg
+          
+      - name: Publish Package.
+        run: |
+          nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/silvester-nuget
+          nuget setapikey ${{ secrets.ARTIFACTORY_USERNAME }}:${{ secrets.ARTIFACTORY_PASSWORD }} -Source Artifactory
+          nuget push ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-semver.outputs.tag }}.nupkg -Source Artifactory
+          
       
