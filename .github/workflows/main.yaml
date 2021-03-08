@@ -29,7 +29,7 @@ jobs:
           image: flungo/inkscape
           options: --mount type=bind,source=${{ steps.set-cwd.outputs.CWD }},target=/mnt
           run: |
-            for FILE in /mnt/*.ai; do /usr/bin/inkscape -f "$f" -l "${f%.ai}.svg"; done
+            for FILE in /mnt/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
             sudo chmod 777 ./*.svg 
       - name: Minify SVG
         run: svgo -f .
