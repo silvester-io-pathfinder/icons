@@ -17,9 +17,7 @@ jobs:
         run: docker run -i --mount type=bind,source="${PWD}",target="/mnt" flungo/inkscape /usr/bin/inkscape -f "/mnt/icons.ai" -l "/mnt/icons.svg"
           
       - name: Install SVGO
-        run: |
-          npm init -y
-          npm install svgo
+        run: npm install -g svgo
       - name: Minify SVG
         run: svgo -f .
         
