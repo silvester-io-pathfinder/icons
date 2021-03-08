@@ -65,6 +65,7 @@ jobs:
           
       - name: NUGET - Package
         run: |
+          cat ./project/Fire.cs
           dotnet pack ./project/Silvester.Pathfinder.Official.Icons.csproj -c Release -o ../build 
           mv ../build/Silvester.Pathfinder.Official.Icons.1.0.0.nupkg ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-semver.outputs.tag }}.nupkg
           
