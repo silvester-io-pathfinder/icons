@@ -19,7 +19,7 @@ jobs:
         run: npm install -g svgo
       - name: Minify SVG
         run: |
-          chmod ./icons.svg 777
+          chmod 777 ./icons.svg
           svgo -f .
         
       
