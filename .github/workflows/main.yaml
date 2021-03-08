@@ -19,7 +19,9 @@ jobs:
           /usr/bin/inkscape -f "icons.ai" -l "icons.svg"
           
       - name: Install SVGO
-        run: npm install svgo
+        run: |
+          npm init -y
+          npm install svgo
       - name: Minify SVG
         run: svgo -f .
         
