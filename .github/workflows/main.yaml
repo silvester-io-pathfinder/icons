@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: '14'
       - name: Conver to SVG
-        run: docker run -i -u 0:0 --mount type=bind,source="${PWD}",target="/mnt" flungo/inkscape /usr/bin/inkscape -f "/mnt/icons.ai" -l "/mnt/icons.svg" && chmod 777 ./icons.svg
+        run: docker run -i -u 0:0 --mount type=bind,source="${PWD}",target="/mnt" flungo/inkscape /usr/bin/inkscape -f "/mnt/icons.ai" -l "/mnt/icons.svg" && sudo chmod 777 ./icons.svg
       - name: Install SVGO
         run: npm install -g svgo
       - name: Minify SVG
