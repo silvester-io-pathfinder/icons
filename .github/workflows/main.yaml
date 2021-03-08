@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: '14'
       - name: Install SVGO
-        run: npm install -g svgo
+        run: npm install svgo
       - name: Minify SVG
         run: svgo -f .
         
