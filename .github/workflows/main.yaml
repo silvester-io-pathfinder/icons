@@ -41,6 +41,6 @@ jobs:
 
       - name: Create icon partial classes
         run: |
-          cd /mnt/project
+          cd ./project
           for FILE in ./Icons/*.svg; do ./Templates/icon.bat "${FILE}"; done 
       
