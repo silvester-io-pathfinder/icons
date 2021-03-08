@@ -14,3 +14,12 @@ jobs:
       - name: Run in container
         run: |        
           /usr/bin/inkscape -f "icons.ai" -l "icons.svg"
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Install SVGO
+        run: npm install -g svgo
+      - name: Minify SVG
+        run: svgo -f .
+        
+      
