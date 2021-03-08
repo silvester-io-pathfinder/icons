@@ -25,7 +25,7 @@ jobs:
         uses: addnab/docker-run-action@v2
         with:
           image: flungo/inkscape
-          options: --mount type=bind,source=${PWD},target=/mnt
+          options: --mount type=bind,source=${{ PWD }},target=/mnt
           run: |
             for FILE in *.svg; do /usr/bin/inkscape -f "/mnt/icons.ai" -l "/mnt/icons.svg"; done
             sudo chmod 777 ./*.svg 
