@@ -29,14 +29,18 @@ jobs:
           image: flungo/inkscape
           options: --mount type=bind,source=${{ steps.set-cwd.outputs.CWD }},target=/mnt
           run: |
-            for FILE in /mnt/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
-            chmod 777 /mnt/*.svg 
+            for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
+            chmod 777 /mnt/Icons/*.svg 
       - name: Minify SVG
         run: svgo -f .
         
       - name: Create project
         run: |
           dotnet new classlib -n Silvester.Pathfinder.Official.Icons -o ./project
-          rm ./project/Class1.cs          
-        
+          rm ./project/Class1.cs  
+
+      - name: Create icon partial classes
+        run: |
+          cd /mnt/project
+          for FILE in /mnt/Icons/*.svg; do /mnt/Templates/icon.bat "${FILE}"; done 
       
