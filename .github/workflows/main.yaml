@@ -32,7 +32,7 @@ jobs:
             for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
             chmod 777 /mnt/Icons/*.svg 
       - name: Minify SVG
-        run: svgo -f .
+        run: svgo -f ./Icons
         
       - name: Create project
         run: |
