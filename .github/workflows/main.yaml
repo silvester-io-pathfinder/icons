@@ -16,6 +16,8 @@ jobs:
         uses: actions/checkout@v2
         
       # Setup
+      - name: Install - INKSCAPE 
+        run: apk add inkscape
       - name: Install - NODE
         uses: actions/setup-node@v2
         with:
@@ -43,14 +45,9 @@ jobs:
         
       # Conversion
       - name: SVG - Convert
-        uses: addnab/docker-run-action@v2
-        with:
-          image: flungo/inkscape
-          options: --mount type=bind,source=${{ steps.set-cwd.outputs.CWD }},target=/mnt
-          run: |
-            for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -l "${FILE}" -o "${FILE%.ai}.svg"; done
-            chmod 777 /mnt/Icons/*.svg 
-            cat /mnt/Icons/Race.svg
+        run: |
+          for FILE in ./Icons/*.ai; do /usr/bin/inkscape "${FILE}" -l "${FILE%.ai}.svg;done
+          cat ./Icons/Race.svg
       - name: SVG - Minify
         run: svgo -f ./Icons --config ./Templates/svgo.config.js
         
