@@ -1,8 +1,9 @@
 name: ci
 
 on:
-  push:
-    branches: master
+  create:
+    tags:
+      - '*.*.*'
 
 jobs:
   transform:
@@ -42,6 +43,9 @@ jobs:
       - name: Set - CWD
         run: echo "::set-output name=CWD::${PWD}"      
         id: set-cwd
+        
+        
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
         
       # Conversion
       - name: SVG - Convert
