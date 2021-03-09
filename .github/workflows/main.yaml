@@ -12,16 +12,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         
-      # Tag  
-      - name: Bump version and push tag
-        uses: Instrument/github-tag-action@v1.0
-        id: tag
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: master
-          BUMP: patch
-          WITH_V: false
-      
       # Setup
       - name: Install - NODE
         uses: actions/setup-node@v2
@@ -43,6 +33,10 @@ jobs:
       - name: Set - CWD
         run: echo "::set-output name=CWD::${PWD}"      
         id: set-cwd
+        
+      - name: Set - Tag
+        id: set-tag
+        run: echo ::set-output name=tag::${GITHUB_REF#refs/*/}
         
       # Conversion
       - name: SVG - Convert
@@ -73,11 +67,11 @@ jobs:
         run: |
           ls ./project -l
           dotnet pack ./project/Silvester.Pathfinder.Official.Icons.csproj -c Release -o ../build 
-          mv ../build/Silvester.Pathfinder.Official.Icons.1.0.0.nupkg ../build/Silvester.Pathfinder.Official.Icons.${{ steps.tag.outputs.new_tag }}.nupkg
+          mv ../build/Silvester.Pathfinder.Official.Icons.1.0.0.nupkg ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-tag.outputs.tag }}.nupkg
           
       - name: NUGET - Push
         run: |
           nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/silvester-nuget -username ${{ secrets.ARTIFACTORY_USERNAME }} -password ${{ secrets.ARTIFACTORY_PASSWORD }}
-          nuget push ../build/Silvester.Pathfinder.Official.Icons.${{ steps.tag.outputs.new_tag }}.nupkg -Source Artifactory
+          nuget push ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-tag.outputs.tag }}.nupkg -Source Artifactory
           
       
