@@ -46,7 +46,7 @@ jobs:
       # Conversion
       - name: SVG - Convert
         run: |
-          for FILE in ./Icons/*.ai; do /usr/bin/inkscape "${FILE}" -l "${FILE%.ai}.svg;done
+          for FILE in ./Icons/*.ai; do /usr/bin/inkscape "${FILE}" -l "${FILE%.ai}".svg;done
           cat ./Icons/Race.svg
       - name: SVG - Minify
         run: svgo -f ./Icons --config ./Templates/svgo.config.js
