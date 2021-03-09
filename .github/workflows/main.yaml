@@ -71,7 +71,7 @@ jobs:
           
       - name: NUGET - Push
         run: |
-          nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/silvester-nuget -username ${{ secrets.ARTIFACTORY_USERNAME }} -password ${{ secrets.ARTIFACTORY_PASSWORD }}
+          nuget sources Add -Name Artifactory -Source https://silvester.jfrog.io/artifactory/api/nuget/silvester-nuget -username ${{ secrets.ARTIFACTORY_USERNAME }} -password ${{ secrets.ARTIFACTORY_PASSWORD }}
           nuget push ../build/Silvester.Pathfinder.Official.Icons.${{ steps.set-tag.outputs.tag }}.nupkg -Source Artifactory
           
       
