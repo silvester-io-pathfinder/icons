@@ -61,6 +61,7 @@ jobs:
           sudo chmod +rx ./Templates/icon.bat
           cd ./project
           for FILE in ../Icons/*.svg; do ../Templates/icon.bat "${FILE}"; done 
+          ls -l
           
       - name: NUGET - Package
         run: |
