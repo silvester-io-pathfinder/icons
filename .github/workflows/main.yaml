@@ -17,7 +17,7 @@ jobs:
         
       # Setup
       - name: Install - INKSCAPE 
-        run: apt-get install inkscape
+        run: sudo apt-get install inkscape
       - name: Install - NODE
         uses: actions/setup-node@v2
         with:
