@@ -48,7 +48,7 @@ jobs:
           image: flungo/inkscape
           options: --mount type=bind,source=${{ steps.set-cwd.outputs.CWD }},target=/mnt
           run: |
-            for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
+            for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -l "${FILE}" -o "${FILE%.ai}.svg"; done
             chmod 777 /mnt/Icons/*.svg 
             cat /mnt/Icons/Race.svg
       - name: SVG - Minify
