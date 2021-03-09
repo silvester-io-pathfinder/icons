@@ -48,7 +48,7 @@ jobs:
             for FILE in /mnt/Icons/*.ai; do /usr/bin/inkscape -f "${FILE}" -l "${FILE%.ai}.svg"; done
             chmod 777 /mnt/Icons/*.svg 
       - name: SVG - Minify
-        run: svgo -f ./Icons
+        run: svgo -f ./Icons --config ./Templates/svgo.config.js
         
         
       # Project Creation  
