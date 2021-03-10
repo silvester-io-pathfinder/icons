@@ -52,6 +52,7 @@ jobs:
         run: |
           mkdir project
           cd ./project
+          sudo chmod +rx ./Templates/project.bat
           ../Templates/project.bat ${{ steps.set-tag.outputs.tag }}
 
       - name: DOTNET - Classes
