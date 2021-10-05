@@ -7,7 +7,7 @@ inputFileContentEscaped=`cat $inputFilePath | sed 's/\"/\\\"/g'`
 
 
 cat > ${PWD}/${inputFileName}.cs  <<-EOF 
-namespace Silvester.Pathfinder.Official.Icons
+namespace Silvester.Pathfinder.Reference.Icons
 {
     public partial class Generated
     {

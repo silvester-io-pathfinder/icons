@@ -2,7 +2,7 @@
 
 semanticVersion=$1
 
-cat > ${PWD}/Silvester.Pathfinder.Official.Icons.csproj  <<-EOF 
+cat > ${PWD}/Silvester.Pathfinder.Reference.Icons.csproj  <<-EOF 
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
