@@ -1,5 +1,13 @@
 module.exports = {
    plugins: [
-		{name: "removeDimensions"}
+		{
+         name: "removeDimensions"
+      },
+      {
+         name: 'convertColors',
+         params: {
+            currentColor: true,
+         }
+      }
    ]
 }
