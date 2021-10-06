@@ -45,7 +45,7 @@ jobs:
         run: |
           for FILE in ./Icons/*.ai; do /usr/bin/inkscape "${FILE}" -l "${FILE%.ai}".svg;done
       - name: SVG - Minify
-        run: svgo -f ./Icons --config ./Templates/svgo.config.js
+        run: svgo -f ./Icons --config ./Templates/svgo.yml
         
       # Project Creation  
       - name: DOTNET - Project
