@@ -5,9 +5,7 @@ module.exports = {
       },
       {
          name: 'convertColors',
-         params: {
-            currentColor: true,
-         }
+         currentColor: true
       }
    ]
 }
