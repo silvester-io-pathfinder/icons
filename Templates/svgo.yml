@@ -1,4 +1,0 @@
-plugins:
-  - removeDimensions
-  - convertColors:
-      currentColor: true
