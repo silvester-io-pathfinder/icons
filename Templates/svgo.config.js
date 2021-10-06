@@ -4,9 +4,8 @@ module.exports = {
          name: "removeDimensions"
       },
       {
-         convertColors: {
-            currentColor: true
-         }
+         name: "currentColors",
+         params: { currentColor: true }
       }
    ]
 }
