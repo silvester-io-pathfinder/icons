@@ -1,0 +1,2 @@
+inkscape "Discord.ai" -l -o "Discord.svg"
+svgo -f ./ --config ../Templates/svgo.config.js
